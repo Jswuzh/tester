@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>K-pop音乐播放</title>
+    <style>
+        /* 隐藏播放器但保留功能 */
+        #youtube-music {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: none;
+            opacity: 0;
+            z-index: -1;
+        }
+        /* 音量控制面板 */
+        #volume-control {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            padding: 10px 15px;
+            border-radius: 25px;
+            display: none;
+        }
+        /* 激活按钮 */
+        #music-activator {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #e52e71;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- 音乐播放器 -->
+    <iframe id="youtube-music"
+            width="0"
+            height="0"
+            src="https://www.youtube.com/embed/9bZkp7q19f0?autoplay=0&loop=1&playlist=9bZkp7q19f0"
+            frameborder="0"
+            allow="autoplay">
+    </iframe>
+
+    <!-- 控制界面 -->
+    <div id="volume-control">
+        <input type="range" id="volume-slider" min="0" max="100" value="50">
+    </div>
+    <button id="music-activator">
+        <i class="fas fa-music"></i> 激活音乐
+    </button>
+
+    <!-- 使用FontAwesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        // 激活音乐播放
+        document.getElementById('music-activator').addEventListener('click', function() {
+            const player = document.getElementById('youtube-music');
+            
+            // 隐藏按钮，显示音量控制
+            this.style.display = 'none';
+            document.getElementById('volume-control').style.display = 'block';
+            
+            // 突破自动播放限制
+            player.src = player.src.replace('autoplay=0', 'autoplay=1');
+            
+            // 模拟用户交互（解决iOS限制）
+            const muteButton = document.createElement('button');
+            muteButton.style.display = 'none';
+            document.body.appendChild(muteButton);
+            muteButton.click();
+            muteButton.remove();
+        });
+    </script>
+</body>
+</html>
