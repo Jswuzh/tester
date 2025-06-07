@@ -1,2 +1,2 @@
 # tester
-./test.html
+/test.html
